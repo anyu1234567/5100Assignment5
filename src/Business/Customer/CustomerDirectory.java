@@ -12,14 +12,20 @@ import java.util.ArrayList;
  * @author harold
  */
 public class CustomerDirectory {
-    private ArrayList<Customer> customer ;
+    private ArrayList<Customer> customers ;
 
+    public CustomerDirectory() {
+        this.customers = new ArrayList<Customer>();
+                
+    }
+    
+    
     public ArrayList<Customer> getCustomer() {
-        return customer;
+        return customers;
     }
 
-    public void setCustomer(ArrayList<Customer> customer) {
-        this.customer = customer;
+    public void setCustomer(ArrayList<Customer> customers) {
+        this.customers = customers;
     }
    
 }

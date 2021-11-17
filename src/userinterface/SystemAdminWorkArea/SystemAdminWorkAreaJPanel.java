@@ -8,8 +8,11 @@ package userinterface.SystemAdminWorkArea;
 import Business.EcoSystem;
 
 import Business.Organization;
+import Business.UserAccount.UserAccount;
+import Business.UserAccount.UserAccountDirectory;
 import java.awt.CardLayout;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -151,6 +154,10 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnManageNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageNetworkActionPerformed
+        CustomerDirectoryJPanel customerDirectory = new CustomerDirectoryJPanel(userProcessContainer, ecosystem);
+        userProcessContainer.add("AddPersonJPanel",customerDirectory);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
        
     }//GEN-LAST:event_btnManageNetworkActionPerformed
 

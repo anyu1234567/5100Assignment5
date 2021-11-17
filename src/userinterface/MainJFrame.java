@@ -4,11 +4,13 @@
  */
 package userinterface;
 
+import Business.ConfigureASystem;
 import Business.EcoSystem;
 import Business.DB4OUtil.DB4OUtil;
 
 import Business.Organization;
 import Business.UserAccount.UserAccount;
+import Business.UserAccount.UserAccountDirectory;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,7 +29,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
     public MainJFrame() {
         initComponents();
-        system = dB4OUtil.retrieveSystem();
+        //system = dB4OUtil.retrieveSystem();
+        system = ConfigureASystem.configure();
         this.setSize(1680, 1050);
     }
 
@@ -123,7 +126,19 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void loginJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginJButtonActionPerformed
         // Get user name
-       
+        UserAccountDirectory userAccountDirectory = system.getUserAccountDirectory();
+        
+        String valueOf = String.valueOf(passwordField.getPassword());
+        System.out.println(valueOf);
+        UserAccount ua = userAccountDirectory.authenticateUser(userNameJTextField.getText(), valueOf);
+        if(ua!=null) {
+            container.add("AdminJPanel",ua.getRole().createWorkArea(container, ua, system));
+            CardLayout layout = (CardLayout)container.getLayout();
+            layout.next(container);
+        }else{
+            JOptionPane.showMessageDialog(this, "Please check username and password", "Info", JOptionPane.INFORMATION_MESSAGE);
+             return;
+        }
     }//GEN-LAST:event_loginJButtonActionPerformed
 
     private void logoutJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutJButtonActionPerformed

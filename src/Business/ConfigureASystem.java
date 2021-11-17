@@ -1,8 +1,13 @@
 package Business;
 
+import Business.Customer.Customer;
+import Business.Customer.CustomerDirectory;
 import Business.Employee.Employee;
+import Business.Role.CustomerRole;
 import Business.Role.SystemAdminRole;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.WorkQueue;
+import java.util.ArrayList;
 
 /**
  *
@@ -23,7 +28,10 @@ public class ConfigureASystem {
         
         Employee employee = system.getEmployeeDirectory().createEmployee("RRH");
         
-        UserAccount ua = system.getUserAccountDirectory().createUserAccount("sysadmin", "sysadmin", employee, new SystemAdminRole());
+        UserAccount ua = system.getUserAccountDirectory().createUserAccount("admin", "admin", employee, new SystemAdminRole());
+        Customer  customer = new Customer("customer", "customer", employee, new CustomerRole());
+        system.addCustomer(customer);
+        
         
         return system;
     }

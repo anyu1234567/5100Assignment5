@@ -6,6 +6,7 @@
 package Business;
 
 
+import Business.Customer.Customer;
 import Business.Customer.CustomerDirectory;
 import Business.DeliveryMan.DeliveryManDirectory;
 import Business.Restaurant.RestaurantDirectory;
@@ -20,9 +21,11 @@ import java.util.ArrayList;
 public class EcoSystem extends Organization{
     
     private static EcoSystem business;
-    private RestaurantDirectory restaurantDirectory;
-    private CustomerDirectory customerDirectory;
-    private DeliveryManDirectory deliveryManDirectory;
+    private RestaurantDirectory restaurantDirectory ;
+    private CustomerDirectory customerDirectory ;
+    private DeliveryManDirectory deliveryManDirectory ;
+
+    
 
     public EcoSystem(RestaurantDirectory restaurantDirectory, CustomerDirectory customerDirectory, DeliveryManDirectory deliveryManDirectory) {
 
@@ -46,6 +49,9 @@ public class EcoSystem extends Organization{
     }
     private EcoSystem(){
         super(null);
+        this.restaurantDirectory = new RestaurantDirectory();
+        this.customerDirectory = new CustomerDirectory();
+        this.deliveryManDirectory = new DeliveryManDirectory();
        // networkList=new ArrayList<Network>();
     }
 
@@ -53,5 +59,38 @@ public class EcoSystem extends Organization{
     public boolean checkIfUserIsUnique(String userName){
        //
        return false;
+    }
+    public RestaurantDirectory getRestaurantDirectory() {
+        return restaurantDirectory;
+    }
+
+    public void setRestaurantDirectory(RestaurantDirectory restaurantDirectory) {
+        this.restaurantDirectory = restaurantDirectory;
+    }
+
+    public CustomerDirectory getCustomerDirectory() {
+        return customerDirectory;
+    }
+
+    public void setCustomerDirectory(CustomerDirectory customerDirectory) {
+        this.customerDirectory = customerDirectory;
+    }
+
+    public DeliveryManDirectory getDeliveryManDirectory() {
+        return deliveryManDirectory;
+    }
+
+    public void setDeliveryManDirectory(DeliveryManDirectory deliveryManDirectory) {
+        this.deliveryManDirectory = deliveryManDirectory;
+    }
+
+    public boolean  addCustomer(Customer customer) {
+        if(customer==null)  return false;
+        this.customerDirectory.getCustomer().add(customer);
+        return true;
+    }
+
+    public void deleteCustomer(Customer customer) {
+        this.customerDirectory.getCustomer().remove(customer);
     }
 }
