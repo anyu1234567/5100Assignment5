@@ -101,6 +101,9 @@ public class RequestLabTestJPanel extends javax.swing.JPanel {
         
         WorkRequest wr = new CustomerWork();
         wr.setMessage(message);
+        wr.setReceiver(userAccount);
+        wr.setStatus("created");
+                
         userAccount.getWorkQueue().getWorkRequestList().add(wr);
 
         JOptionPane.showMessageDialog(this, "request added!", "Info", JOptionPane.INFORMATION_MESSAGE);
