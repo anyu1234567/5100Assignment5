@@ -33,7 +33,7 @@ public class ConfigureASystem {
         
         
         Employee employee = system.getEmployeeDirectory().createEmployee("RRH");
-        
+        //add useraccount;
         UserAccount ua = system.getUserAccountDirectory().createUserAccount("admin", "admin", employee, new SystemAdminRole());
         Customer  customer = new Customer("customer", "customer", employee, new CustomerRole());
         system.addCustomer(customer);
