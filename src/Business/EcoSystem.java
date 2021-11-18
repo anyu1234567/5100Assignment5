@@ -90,6 +90,7 @@ public class EcoSystem extends Organization{
     public boolean  addCustomer(Customer customer) {
         if(customer==null)  return false;
         this.customerDirectory.getCustomer().add(customer);
+        super.getUserAccountDirectory().getUserAccountList().add(customer);
         return true;
     }
 
@@ -100,6 +101,7 @@ public class EcoSystem extends Organization{
     public boolean addRestaurant(Restaurant restaurant) {
          if(restaurant==null)  return false;
         this.restaurantDirectory.getRestaurants().add(restaurant);
+        super.getUserAccountDirectory().getUserAccountList().add(restaurant);
         return true;
     }
     
@@ -110,6 +112,7 @@ public class EcoSystem extends Organization{
     public boolean addDeliveryMan(DeliveryMan dm) {
         if(dm==null)  return false;
         this.deliveryManDirectory.getDeliveryMans().add(dm);
+        super.getUserAccountDirectory().getUserAccountList().add(dm);
         return true;
     }
     
