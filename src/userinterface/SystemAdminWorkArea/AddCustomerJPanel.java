@@ -128,7 +128,7 @@ public class AddCustomerJPanel extends javax.swing.JPanel {
         Customer customer = new Customer(name, pw, employee, new CustomerRole());
         ecosystem.addCustomer(customer);
 
-        JOptionPane.showMessageDialog(this, "Encounter  added!", "Info", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "customer  added!", "Info", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_SButtonActionPerformed
 
 

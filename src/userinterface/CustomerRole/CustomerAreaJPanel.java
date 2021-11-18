@@ -4,6 +4,7 @@
  */
 package userinterface.CustomerRole;
 
+import Business.Customer.Customer;
 import Business.EcoSystem;
 
 import Business.UserAccount.UserAccount;
@@ -11,6 +12,7 @@ import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import userinterface.SystemAdminWorkArea.AddCustomerJPanel;
 
 /**
  *
@@ -31,11 +33,23 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
       
         this.userAccount = account;
         //valueLabel.setText(enterprise.getName());
-        populateRequestTable();
+        refreshRequestTable();
     }
     
-    public void populateRequestTable(){
-        
+    public void refreshRequestTable(){
+        int rowCount = workRequestJTable.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();
+        for(int i=rowCount-1;i>=0;i--){
+            model.removeRow(i);
+        }
+        for (WorkRequest wr : userAccount.getWorkQueue().getWorkRequestList()) {
+            Object row[] = new Object[4];
+            row[0] = wr;
+            row[1] = wr.getReceiver();
+            row[2] = wr.getSender();
+            row[3] =  wr.getStatus();
+            model.addRow(row);
+        }
     }
 
     
@@ -63,7 +77,7 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Message", "Receiver", "Status", "Result"
+                "Message", "Receiver", "Sender", "Status"
             }
         ) {
             Class[] types = new Class [] {
@@ -113,10 +127,10 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(179, Short.MAX_VALUE)
+                .addGap(179, 179, 179)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
                         .addGap(165, 165, 165))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(requestTestJButton)
@@ -148,14 +162,17 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
-        
+         RequestLabTestJPanel labTestJPanel = new RequestLabTestJPanel(userProcessContainer, userAccount);
+        userProcessContainer.add("AddPersonJPanel",labTestJPanel);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
         
         
     }//GEN-LAST:event_requestTestJButtonActionPerformed
 
     private void refreshTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshTestJButtonActionPerformed
 
-        populateRequestTable();
+        refreshRequestTable();
         
     }//GEN-LAST:event_refreshTestJButtonActionPerformed
 

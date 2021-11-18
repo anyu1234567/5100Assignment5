@@ -8,7 +8,9 @@ package Business;
 
 import Business.Customer.Customer;
 import Business.Customer.CustomerDirectory;
+import Business.DeliveryMan.DeliveryMan;
 import Business.DeliveryMan.DeliveryManDirectory;
+import Business.Restaurant.Restaurant;
 import Business.Restaurant.RestaurantDirectory;
 import Business.Role.Role;
 import Business.Role.SystemAdminRole;
@@ -92,5 +94,25 @@ public class EcoSystem extends Organization{
 
     public void deleteCustomer(Customer customer) {
         this.customerDirectory.getCustomer().remove(customer);
+    }
+
+    public boolean addRestaurant(Restaurant restaurant) {
+         if(restaurant==null)  return false;
+        this.restaurantDirectory.getRestaurants().add(restaurant);
+        return true;
+    }
+    
+     public void deleteRestaurant(Restaurant restaurant) {
+        this.restaurantDirectory.getRestaurants().remove(restaurant);
+    }
+
+    public boolean addDeliveryMan(DeliveryMan dm) {
+        if(dm==null)  return false;
+        this.deliveryManDirectory.getDeliveryMans().add(dm);
+        return true;
+    }
+    
+     public void DeleteDeliveryMan(DeliveryMan dm) {
+        this.deliveryManDirectory.getDeliveryMans().remove(dm);
     }
 }

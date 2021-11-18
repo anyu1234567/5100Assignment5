@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author An
  */
-public class CustomerDirectoryJPanel extends javax.swing.JPanel {
+public class DeliverManDirectoryJPanel1 extends javax.swing.JPanel {
 
     /**
      * Creates new form CustomerDirectory
@@ -25,11 +25,11 @@ public class CustomerDirectoryJPanel extends javax.swing.JPanel {
     
     JPanel userProcessContainer;
     EcoSystem ecosystem;
-    public CustomerDirectoryJPanel(JPanel userProcessContainer,EcoSystem ecosystem) {
+    public DeliverManDirectoryJPanel1(JPanel userProcessContainer,EcoSystem ecosystem) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.ecosystem=ecosystem;
-        reFreshCustomers();
+        reFreshDeliverMan();
     }
 
     /**
@@ -42,13 +42,13 @@ public class CustomerDirectoryJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        CustomerTable = new javax.swing.JTable();
+        deliverManTable = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
         Add = new javax.swing.JButton();
         Delete = new javax.swing.JButton();
         detail = new javax.swing.JButton();
 
-        CustomerTable.setModel(new javax.swing.table.DefaultTableModel(
+        deliverManTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -74,7 +74,7 @@ public class CustomerDirectoryJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(CustomerTable);
+        jScrollPane1.setViewportView(deliverManTable);
 
         btnBack.setText("<< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -161,33 +161,33 @@ public class CustomerDirectoryJPanel extends javax.swing.JPanel {
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         // TODO add your handling code here:
-        int row = CustomerTable.getSelectedRow();
+        int row = deliverManTable.getSelectedRow();
         if(row<0){
             JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        Customer customer = (Customer)CustomerTable.getValueAt(row, 0);
+        Customer customer = (Customer)deliverManTable.getValueAt(row, 0);
         ecosystem.deleteCustomer(customer);
-        reFreshCustomers();
+        reFreshDeliverMan();
     }//GEN-LAST:event_DeleteActionPerformed
 
     private void detailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailActionPerformed
         // TODO add your handling code here:
-        int row = CustomerTable.getSelectedRow();
+        int row = deliverManTable.getSelectedRow();
         if(row<0){
             JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        Customer customer = (Customer)CustomerTable.getValueAt(row, 0);
+        Customer customer = (Customer)deliverManTable.getValueAt(row, 0);
          ViewDetailJPanel viewDetailJPanel = new ViewDetailJPanel(userProcessContainer, customer);
         userProcessContainer.add("AddPersonJPanel",viewDetailJPanel);
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_detailActionPerformed
 
-    public void reFreshCustomers() {
-        int rowCount = CustomerTable.getRowCount();
-        DefaultTableModel model = (DefaultTableModel) CustomerTable.getModel();
+    public void reFreshDeliverMan() {
+        int rowCount = deliverManTable.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) deliverManTable.getModel();
         for(int i=rowCount-1;i>=0;i--){
             model.removeRow(i);
         }
@@ -203,9 +203,9 @@ public class CustomerDirectoryJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Add;
-    private javax.swing.JTable CustomerTable;
     private javax.swing.JButton Delete;
     private javax.swing.JButton btnBack;
+    private javax.swing.JTable deliverManTable;
     private javax.swing.JButton detail;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

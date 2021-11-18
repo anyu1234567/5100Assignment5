@@ -5,10 +5,27 @@
  */
 package Business.Restaurant;
 
+import Business.Employee.Employee;
+import Business.Role.Role;
+import Business.UserAccount.UserAccount;
+
 /**
  *
  * @author harold
  */
-public class Restaurant {
+public class Restaurant extends UserAccount{
+
+    public Restaurant(String username, String password, Employee employee, Role role) {
+        super();
+        super.setUsername(username);
+        super.setPassword(password);
+        super.setEmployee(employee);
+        super.setRole(role);
+    }
+
+    @Override
+    public String toString() {
+        return  super.getUsername();
+    }
     
 }

@@ -4,13 +4,19 @@
  */
 package userinterface.CustomerRole;
 
+import Business.Customer.Customer;
 import Business.EcoSystem;
+import Business.Employee.Employee;
 import Business.Organization;
+import Business.Role.CustomerRole;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.CustomerWork;
+import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -81,9 +87,23 @@ public class RequestLabTestJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
+   
+            String message;
+
         
+        try{
+            message = messageJTextField.getText();
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Please check message", "Info", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         
-        
+        WorkRequest wr = new CustomerWork();
+        wr.setMessage(message);
+        userAccount.getWorkQueue().getWorkRequestList().add(wr);
+
+        JOptionPane.showMessageDialog(this, "request added!", "Info", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_requestTestJButtonActionPerformed
 
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
@@ -92,7 +112,7 @@ public class RequestLabTestJPanel extends javax.swing.JPanel {
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         CustomerAreaJPanel dwjp = (CustomerAreaJPanel) component;
-        dwjp.populateRequestTable();
+        dwjp.refreshRequestTable();                
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
         

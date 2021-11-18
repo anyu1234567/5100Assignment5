@@ -41,7 +41,10 @@ public class UserAccountDirectory {
         userAccountList.add(userAccount);
         return userAccount;
     }
-    
+    public UserAccount createUserAccount(UserAccount ua){
+        userAccountList.add(ua);
+        return ua;
+    }
     public boolean checkIfUsernameIsUnique(String username){
         for (UserAccount ua : userAccountList){
             if (ua.getUsername().equals(username))
@@ -49,4 +52,5 @@ public class UserAccountDirectory {
         }
         return true;
     }
+
 }

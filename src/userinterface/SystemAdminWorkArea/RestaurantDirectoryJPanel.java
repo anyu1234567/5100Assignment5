@@ -7,6 +7,7 @@ package userinterface.SystemAdminWorkArea;
 
 import Business.Customer.Customer;
 import Business.EcoSystem;
+import Business.Restaurant.Restaurant;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
@@ -17,19 +18,18 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author An
  */
-public class CustomerDirectoryJPanel extends javax.swing.JPanel {
+public class RestaurantDirectoryJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form CustomerDirectory
+     * Creates new form RestaurantDirectoryJPanel
      */
-    
     JPanel userProcessContainer;
     EcoSystem ecosystem;
-    public CustomerDirectoryJPanel(JPanel userProcessContainer,EcoSystem ecosystem) {
+    public RestaurantDirectoryJPanel(JPanel userProcessContainer,EcoSystem ecosystem) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.ecosystem=ecosystem;
-        reFreshCustomers();
+        reFreshRestaurantTable();
     }
 
     /**
@@ -42,13 +42,13 @@ public class CustomerDirectoryJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        CustomerTable = new javax.swing.JTable();
+        RestaurantTable = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
         Add = new javax.swing.JButton();
         Delete = new javax.swing.JButton();
         detail = new javax.swing.JButton();
 
-        CustomerTable.setModel(new javax.swing.table.DefaultTableModel(
+        RestaurantTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -56,7 +56,7 @@ public class CustomerDirectoryJPanel extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "Customer Name", "password", "Role"
+                "Restaurant Name", "password", "Role"
             }
         ) {
             Class[] types = new Class [] {
@@ -74,7 +74,7 @@ public class CustomerDirectoryJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(CustomerTable);
+        jScrollPane1.setViewportView(RestaurantTable);
 
         btnBack.setText("<< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -109,40 +109,39 @@ public class CustomerDirectoryJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(205, 205, 205)
-                        .addComponent(Add, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
-                        .addGap(31, 31, 31)
-                        .addComponent(Delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(detail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(327, 327, 327))
+                .addGap(172, 172, 172)
+                .addComponent(Add, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                .addGap(49, 49, 49)
+                .addComponent(Delete, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                .addGap(52, 52, 52)
+                .addComponent(detail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(283, 283, 283))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(160, 160, 160)
+                    .addGap(170, 170, 170)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
-                    .addGap(194, 194, 194)))
+                    .addGap(171, 171, 171)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 292, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 336, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Delete)
-                    .addComponent(detail)
-                    .addComponent(Add))
-                .addGap(172, 172, 172))
+                    .addComponent(Add)
+                    .addComponent(detail))
+                .addGap(48, 48, 48))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(114, 114, 114)
+                    .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(226, Short.MAX_VALUE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -153,62 +152,62 @@ public class CustomerDirectoryJPanel extends javax.swing.JPanel {
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         // TODO add your handling code here:
-         AddCustomerJPanel addCustomerJPanel = new AddCustomerJPanel(userProcessContainer, ecosystem);
-        userProcessContainer.add("AddPersonJPanel",addCustomerJPanel);
+        AddRestaurantJPanel1 arjp = new AddRestaurantJPanel1(userProcessContainer, ecosystem);
+        userProcessContainer.add("AddPersonJPanel",arjp);
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_AddActionPerformed
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         // TODO add your handling code here:
-        int row = CustomerTable.getSelectedRow();
+        int row = RestaurantTable.getSelectedRow();
         if(row<0){
             JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        Customer customer = (Customer)CustomerTable.getValueAt(row, 0);
-        ecosystem.deleteCustomer(customer);
-        reFreshCustomers();
+        Restaurant restaurant = (Restaurant)RestaurantTable.getValueAt(row, 0);
+        ecosystem.deleteRestaurant(restaurant);
+        reFreshRestaurantTable();
     }//GEN-LAST:event_DeleteActionPerformed
 
     private void detailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailActionPerformed
         // TODO add your handling code here:
-        int row = CustomerTable.getSelectedRow();
+        int row = RestaurantTable.getSelectedRow();
         if(row<0){
             JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        Customer customer = (Customer)CustomerTable.getValueAt(row, 0);
-         ViewDetailJPanel viewDetailJPanel = new ViewDetailJPanel(userProcessContainer, customer);
-        userProcessContainer.add("AddPersonJPanel",viewDetailJPanel);
+        Restaurant restaurant = (Restaurant)RestaurantTable.getValueAt(row, 0);
+        ViewDetailJPanel vrdjp = new ViewDetailJPanel(userProcessContainer, restaurant);
+        userProcessContainer.add("AddPersonJPanel",vrdjp);
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_detailActionPerformed
 
-    public void reFreshCustomers() {
-        int rowCount = CustomerTable.getRowCount();
-        DefaultTableModel model = (DefaultTableModel) CustomerTable.getModel();
-        for(int i=rowCount-1;i>=0;i--){
-            model.removeRow(i);
-        }
-        for (Customer c : ecosystem.getCustomerDirectory().getCustomer()) {
-            Object row[] = new Object[3];
-            row[0] = c;
-            row[1] = c.getPassword();
-            row[2] = c.getRole();
-            model.addRow(row);
-        }
-    }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Add;
-    private javax.swing.JTable CustomerTable;
     private javax.swing.JButton Delete;
+    private javax.swing.JTable RestaurantTable;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton detail;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    public void reFreshRestaurantTable() {
+        int rowCount = RestaurantTable.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) RestaurantTable.getModel();
+        for(int i=rowCount-1;i>=0;i--){
+            model.removeRow(i);
+        }
+        for (Restaurant r : ecosystem.getRestaurantDirectory().getRestaurants()) {
+            Object row[] = new Object[3];
+            row[0] = r;
+            row[1] = r.getPassword();
+            row[2] = r.getRole();
+            model.addRow(row);
+        }
+    }
 
     private void backAction() {
          userProcessContainer.remove(this);
