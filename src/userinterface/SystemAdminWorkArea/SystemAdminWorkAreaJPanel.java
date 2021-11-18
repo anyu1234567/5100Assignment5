@@ -155,7 +155,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnManageCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageCustomerActionPerformed
         CustomerDirectoryJPanel customerDirectory = new CustomerDirectoryJPanel(userProcessContainer, ecosystem);
-        userProcessContainer.add("AddPersonJPanel",customerDirectory);
+        userProcessContainer.add(customerDirectory);
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
        
@@ -163,13 +163,16 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnManageRestaurantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRestaurantActionPerformed
         RestaurantDirectoryJPanel rdjp = new RestaurantDirectoryJPanel(userProcessContainer, ecosystem);
-        userProcessContainer.add("AddPersonJPanel",rdjp);
+        userProcessContainer.add(rdjp);
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManageRestaurantActionPerformed
 
     private void btnManageDeliverManActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageDeliverManActionPerformed
-       
+        DeliverManDirectoryJPanel1 dmdjp = new DeliverManDirectoryJPanel1(userProcessContainer, ecosystem);
+        userProcessContainer.add(dmdjp);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManageDeliverManActionPerformed
 
     private void jTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTreeValueChanged

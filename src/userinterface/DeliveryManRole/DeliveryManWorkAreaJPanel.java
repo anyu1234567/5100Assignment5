@@ -4,13 +4,16 @@
  */
 package userinterface.DeliveryManRole;
 
+import Business.Customer.Customer;
 import Business.EcoSystem;
 
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import userinterface.SystemAdminWorkArea.AddCustomerJPanel;
 
 /**
  *
@@ -19,26 +22,43 @@ import javax.swing.table.DefaultTableModel;
 public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
 
     private JPanel userProcessContainer;
-    private EcoSystem business;
+    private EcoSystem system;
     private UserAccount userAccount;
     
     
     /**
      * Creates new form LabAssistantWorkAreaJPanel
      */
-    public DeliveryManWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem business) {
+    public DeliveryManWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system) {
         initComponents();
         
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
-        this.business = business;
+        this.system = system;
       
         
-        populateTable();
+        refreshWorkRequestTable();
     }
     
-    public void populateTable(){
+    public void refreshWorkRequestTable(){
+        int rowCount = workRequestJTable.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();
+        for(int i=rowCount-1;i>=0;i--){
+            model.removeRow(i);
+        }
         
+        for (Customer c : system.getCustomerDirectory().getCustomer()) {
+           for(WorkRequest tmpwr: c.getWorkQueue().getWorkRequestList()){
+               Object row[] = new Object[4];
+                row[0] = tmpwr;
+                row[1] = tmpwr.getReceiver();
+                row[2] = tmpwr.getSender();
+                row[3] = tmpwr.getStatus();
+                model.addRow(row);
+           }
+            
+            
+        }
     }
 
     /**
@@ -66,7 +86,7 @@ public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Message", "Sender", "Receiver", "Status"
+                "Message", "Receiver", "Sender", "Status"
             }
         ) {
             Class[] types = new Class [] {
@@ -121,27 +141,48 @@ public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
 
     private void assignJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignJButtonActionPerformed
 
-        int selectedRow = workRequestJTable.getSelectedRow();
-        
-        if (selectedRow < 0){
+        int row = workRequestJTable.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
-        WorkRequest request = (WorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
-        request.setReceiver(userAccount);
+        WorkRequest request = (WorkRequest)workRequestJTable.getValueAt(row, 0);
+        if(request.getStatus().equals("complete")){
+            JOptionPane.showMessageDialog(null, "this order have completed, please select other order", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if(request.getStatus().equals("created")){
+            JOptionPane.showMessageDialog(null, "please wait restaurant update order status", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        request.setSender(userAccount);
         request.setStatus("Pending");
-        populateTable();
+        refreshWorkRequestTable();
         
     }//GEN-LAST:event_assignJButtonActionPerformed
 
     private void processJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processJButtonActionPerformed
+        int row = workRequestJTable.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        WorkRequest request = (WorkRequest)workRequestJTable.getValueAt(row, 0);
         
+        if(request.getSender()==null){
+            JOptionPane.showMessageDialog(null, "Please assign first", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        ProcessWorkRequestJPanel pwrjp = new ProcessWorkRequestJPanel(userProcessContainer, request);
+        userProcessContainer.add("ProcessWorkRequestJPanel",pwrjp);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
 
         
     }//GEN-LAST:event_processJButtonActionPerformed
 
     private void refreshJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshJButtonActionPerformed
-        populateTable();
+        refreshWorkRequestTable();
     }//GEN-LAST:event_refreshJButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

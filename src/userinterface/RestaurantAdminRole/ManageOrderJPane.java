@@ -139,14 +139,14 @@ public class ManageOrderJPane extends javax.swing.JPanel {
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         // TODO add your handling code here:
-//        int row = OrderJTable.getSelectedRow();
-//        if(row<0){
-//            JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
-//            return;
-//        }
-//        WorkRequest wr = (WorkRequest)OrderJTable.getValueAt(row, 0);
-//        ecosystem.deleteCustomer(customer);
-//        reFreshOrderTable();
+        int row = OrderJTable.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        WorkRequest wr = (WorkRequest)OrderJTable.getValueAt(row, 0);
+        system.DeleteWR(wr);
+        reFreshOrderTable();
     }//GEN-LAST:event_DeleteActionPerformed
 
     private void detailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailActionPerformed

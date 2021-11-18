@@ -132,7 +132,8 @@ public class MainJFrame extends javax.swing.JFrame {
         System.out.println(valueOf);
         UserAccount ua = userAccountDirectory.authenticateUser(userNameJTextField.getText(), valueOf);
         if(ua!=null) {
-            container.add("AdminJPanel",ua.getRole().createWorkArea(container, ua, system));
+            
+            container.add(ua.getRole().createWorkArea(container, ua, system));
             CardLayout layout = (CardLayout)container.getLayout();
             layout.next(container);
         }else{
@@ -153,7 +154,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
         container.removeAll();
         JPanel blankJP = new JPanel();
-        container.add("blank", blankJP);
+        //container.remove
+        container.add(blankJP);
         CardLayout crdLyt = (CardLayout) container.getLayout();
         crdLyt.next(container);
         //dB4OUtil.storeSystem(system);

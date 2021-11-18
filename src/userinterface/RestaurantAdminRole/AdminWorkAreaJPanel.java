@@ -7,7 +7,6 @@ import java.awt.CardLayout;
 import javax.swing.JPanel;
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
-import userinterface.SystemAdminWorkArea.AddCustomerJPanel;
 /**
  *
  * @author  raunak
@@ -81,19 +80,22 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void manageInfoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageInfoJButtonActionPerformed
         // TODO add your handling code here:
-        
+        ViewRestaurantInfoJPanel mmjp = new ViewRestaurantInfoJPanel(userProcessContainer,ua);
+        userProcessContainer.add(mmjp);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_manageInfoJButtonActionPerformed
 
     private void manageMenuJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageMenuJButtonActionPerformed
         ManageMenuJPanel mmjp = new ManageMenuJPanel(userProcessContainer,system,ua);
-        userProcessContainer.add("AddPersonJPanel",mmjp);
+        userProcessContainer.add(mmjp);
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_manageMenuJButtonActionPerformed
 
     private void manageOrderJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrderJButtonActionPerformed
         ManageOrderJPane mojp = new ManageOrderJPane(userProcessContainer,system);
-        userProcessContainer.add("AddPersonJPanel",mojp);
+        userProcessContainer.add(mojp);
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_manageOrderJButtonActionPerformed

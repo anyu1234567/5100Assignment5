@@ -5,18 +5,16 @@
  */
 package userinterface.RestaurantAdminRole;
 
-import Business.Customer.Customer;
 import Business.EcoSystem;
 import Business.Restaurant.Dish;
 import Business.Restaurant.Restaurant;
 import Business.UserAccount.UserAccount;
-import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-import userinterface.SystemAdminWorkArea.CustomerDirectoryJPanel;
+
 
 /**
  *
@@ -172,9 +170,9 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        WorkRequest wr = (WorkRequest)OrderJTable.getValueAt(row, 0);
-        ViewOrderDetailJPanel detailJPanel = new ViewOrderDetailJPanel(userProcessContainer, wr);
-        userProcessContainer.add("AddPersonJPanel",detailJPanel);
+        Dish dish = (Dish)OrderJTable.getValueAt(row, 0);
+        ViewDishDetailJPanel1 detailJPanel = new ViewDishDetailJPanel1(userProcessContainer, dish);
+        userProcessContainer.add("ViewDishDetailJPanel1",detailJPanel);
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_detailActionPerformed

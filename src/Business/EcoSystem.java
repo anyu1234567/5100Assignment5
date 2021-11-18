@@ -14,6 +14,7 @@ import Business.Restaurant.Restaurant;
 import Business.Restaurant.RestaurantDirectory;
 import Business.Role.Role;
 import Business.Role.SystemAdminRole;
+import Business.WorkQueue.WorkRequest;
 import java.util.ArrayList;
 
 /**
@@ -115,4 +116,12 @@ public class EcoSystem extends Organization{
      public void DeleteDeliveryMan(DeliveryMan dm) {
         this.deliveryManDirectory.getDeliveryMans().remove(dm);
     }
+     public void DeleteWR(WorkRequest request){
+         for(Customer c:this.getCustomerDirectory().getCustomer()){
+             ArrayList<WorkRequest> workRequestList = c.getWorkQueue().getWorkRequestList();
+             if(workRequestList.contains(request)){
+                 workRequestList.remove(request);
+             }
+         }
+     }
 }

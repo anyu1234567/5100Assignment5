@@ -5,11 +5,10 @@
  */
 package userinterface.SystemAdminWorkArea;
 
-import Business.Customer.Customer;
+import Business.DeliveryMan.DeliveryMan;
 import Business.EcoSystem;
 import Business.Employee.Employee;
-import Business.Role.CustomerRole;
-import Business.UserAccount.UserAccount;
+import Business.Role.DeliverManRole;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
@@ -19,22 +18,17 @@ import javax.swing.JPanel;
  *
  * @author An
  */
-public class ViewDetailJPanel extends javax.swing.JPanel {
+public class AddDeliveryManJPanel11 extends javax.swing.JPanel {
 
     /**
-     * Creates new form ViewDetailJPanel
+     * Creates new form addCustomer
      */
     JPanel userProcessContainer;
-    UserAccount ua;
-    public ViewDetailJPanel(JPanel userProcessContainer,UserAccount ua) {
+    EcoSystem ecosystem;
+    public AddDeliveryManJPanel11(JPanel userProcessContainer,EcoSystem ecosystem) {
         initComponents();
-         this.userProcessContainer=userProcessContainer;
-        this.ua=ua;
-        txtName.setText(ua.getUsername());
-        txtPW.setText(ua.getPassword());
-                
-        txtName.setEditable(false);
-        txtPW.setEditable(false);
+        this.userProcessContainer=userProcessContainer;
+        this.ecosystem=ecosystem;
     }
 
     /**
@@ -52,7 +46,6 @@ public class ViewDetailJPanel extends javax.swing.JPanel {
         txtPW = new javax.swing.JTextField();
         btnBack = new javax.swing.JButton();
         SButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
 
         jLabel1.setText("Username：");
 
@@ -66,17 +59,9 @@ public class ViewDetailJPanel extends javax.swing.JPanel {
         });
 
         SButton.setText("Save");
-        SButton.setEnabled(false);
         SButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SButtonActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Update");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
             }
         });
 
@@ -100,10 +85,8 @@ public class ViewDetailJPanel extends javax.swing.JPanel {
                         .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(320, 320, 320)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(SButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(268, 268, 268))
+                        .addComponent(SButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(350, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,11 +101,9 @@ public class ViewDetailJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtPW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(71, 71, 71)
                 .addComponent(SButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -135,7 +116,7 @@ public class ViewDetailJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         String name;
         String pw;
-
+        
         try{
             name = txtName.getText();
             pw = txtPW.getText();
@@ -143,25 +124,17 @@ public class ViewDetailJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please check Name, Password", "Info", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        ua.setUsername(name);
-        ua.setPassword(pw);
-                
+        Employee employee = ecosystem.getEmployeeDirectory().createEmployee("DiliveryManDR");
+        DeliveryMan dm = new DeliveryMan(name, pw, employee, new DeliverManRole());
+        ecosystem.addDeliveryMan(dm);
 
-        JOptionPane.showMessageDialog(this, "customer updated!", "Info", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "deliveryMan  added!", "Info", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_SButtonActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        txtName.setEditable(true);
-        txtPW.setEditable(true);
-        SButton.setEnabled(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton SButton;
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField txtName;
@@ -169,21 +142,11 @@ public class ViewDetailJPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void backAction() {
-        String roleName = ua.getRole().getClass().getName();
         userProcessContainer.remove(this);
         Component [] componentArray = userProcessContainer.getComponents();
         Component c = componentArray[componentArray.length-1];
-        if(roleName.equals("Business.Role.AdminRole")){
-            RestaurantDirectoryJPanel rdjp = (RestaurantDirectoryJPanel) c;
-            rdjp.reFreshRestaurantTable();
-        }else if(roleName.equals("Business.Role.CustomerRole")){
-            CustomerDirectoryJPanel cdjp = (CustomerDirectoryJPanel) c;
-            cdjp.reFreshCustomers();
-        }else if(roleName.equals("Business.Role.DeliverManRole")){
-            DeliverManDirectoryJPanel1 dmdjp = (DeliverManDirectoryJPanel1) c;
-            dmdjp.reFreshDeliverMan();
-        }
-
+        DeliverManDirectoryJPanel1 dmdjp = (DeliverManDirectoryJPanel1)c;
+        dmdjp.reFreshDeliverMan();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }

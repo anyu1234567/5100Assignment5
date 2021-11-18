@@ -6,6 +6,7 @@
 package userinterface.SystemAdminWorkArea;
 
 import Business.Customer.Customer;
+import Business.DeliveryMan.DeliveryMan;
 import Business.EcoSystem;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -153,8 +154,8 @@ public class DeliverManDirectoryJPanel1 extends javax.swing.JPanel {
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         // TODO add your handling code here:
-         AddCustomerJPanel addCustomerJPanel = new AddCustomerJPanel(userProcessContainer, ecosystem);
-        userProcessContainer.add("AddPersonJPanel",addCustomerJPanel);
+         AddDeliveryManJPanel11 AddDeliveryManJPanel11 = new AddDeliveryManJPanel11(userProcessContainer, ecosystem);
+        userProcessContainer.add("AddPersonJPanel",AddDeliveryManJPanel11);
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_AddActionPerformed
@@ -166,8 +167,8 @@ public class DeliverManDirectoryJPanel1 extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        Customer customer = (Customer)deliverManTable.getValueAt(row, 0);
-        ecosystem.deleteCustomer(customer);
+        DeliveryMan deliveryMan = (DeliveryMan)deliverManTable.getValueAt(row, 0);
+        ecosystem.DeleteDeliveryMan(deliveryMan);
         reFreshDeliverMan();
     }//GEN-LAST:event_DeleteActionPerformed
 
@@ -178,9 +179,9 @@ public class DeliverManDirectoryJPanel1 extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        Customer customer = (Customer)deliverManTable.getValueAt(row, 0);
-         ViewDetailJPanel viewDetailJPanel = new ViewDetailJPanel(userProcessContainer, customer);
-        userProcessContainer.add("AddPersonJPanel",viewDetailJPanel);
+        DeliveryMan dm = (DeliveryMan)deliverManTable.getValueAt(row, 0);
+         ViewDetailJPanel viewDetailJPanel = new ViewDetailJPanel(userProcessContainer, dm);
+        userProcessContainer.add(viewDetailJPanel);
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_detailActionPerformed
@@ -191,11 +192,11 @@ public class DeliverManDirectoryJPanel1 extends javax.swing.JPanel {
         for(int i=rowCount-1;i>=0;i--){
             model.removeRow(i);
         }
-        for (Customer c : ecosystem.getCustomerDirectory().getCustomer()) {
+        for (DeliveryMan dm : ecosystem.getDeliveryManDirectory().getDeliveryMans()) {
             Object row[] = new Object[3];
-            row[0] = c;
-            row[1] = c.getPassword();
-            row[2] = c.getRole();
+            row[0] = dm;
+            row[1] = dm.getPassword();
+            row[2] = dm.getRole();
             model.addRow(row);
         }
     }
